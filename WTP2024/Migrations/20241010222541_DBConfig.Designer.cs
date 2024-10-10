@@ -12,8 +12,8 @@ using WTP2024.DAL;
 namespace WTP2024.Migrations
 {
     [DbContext(typeof(WTP2024DbContext))]
-    [Migration("20241010220602_DDL")]
-    partial class DDL
+    [Migration("20241010222541_DBConfig")]
+    partial class DBConfig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
