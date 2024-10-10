@@ -9,21 +9,14 @@ namespace WTP2024.DAL.Configuration
         public void Configure(EntityTypeBuilder<RatingDb> builder)
         {
             builder.ToTable("rating");
-            builder.HasKey(x => x.IdRating);
+            builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.IdRating).IsRequired().ValueGeneratedOnAdd();
-            builder.Property(x => x.IdBeer).HasColumnName("idBeer").IsRequired();
-            builder.Property(x => x.IdUser).HasColumnName("idUser").IsRequired();
+            builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
+
             builder.Property(x => x.Rating).HasColumnName("rating").IsRequired();
-            builder.Property(x => x.AddedDate).HasColumnName("addedDate");
+            builder.Property(x => x.AddedDate).HasColumnName("added_date");
 
-            builder.HasOne(r => r.User)
-                .WithMany(u => u.Ratings)
-                .HasForeignKey(r => r.IdUser);
 
-            builder.HasOne(r => r.Beer)
-                .WithMany(b => b.Ratings)
-                .HasForeignKey(r => r.IdBeer);
         }
     }
 }

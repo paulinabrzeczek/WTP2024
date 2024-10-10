@@ -9,14 +9,13 @@ namespace WTP2024.DAL.Configuration
         public void Configure(EntityTypeBuilder<RoleDb> builder)
         {
             builder.ToTable("role");
-            builder.HasKey(x => x.IdRole);
+            builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.IdRole).IsRequired().ValueGeneratedOnAdd();
-            builder.Property(x => x.NameRole).HasColumnName("nameRole");
+            builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Property(x => x.NameRole).HasColumnName("name_role");
 
-            builder.HasMany(r => r.Users)
-                .WithOne(u => u.Role)
-                .HasForeignKey(r => r.IdUser);
+          
+
         }
     }
 }

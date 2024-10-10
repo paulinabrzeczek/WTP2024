@@ -11,22 +11,25 @@ namespace WTP2024.DAL.Configuration
         public void Configure(EntityTypeBuilder<UserDb> builder)
         {
             builder.ToTable("user");
-            builder.HasKey(x => x.IdUser);
+            builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.IdUser).IsRequired().ValueGeneratedOnAdd();
+            builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.Username).HasColumnName("username").IsRequired();
             builder.Property(x => x.Passwordhash).HasColumnName("passwordhash").IsRequired().HasMaxLength(100);
-            builder.Property(x => x.IdRole).HasColumnName("idRole");
+            builder.Property(u => u.RoleId)
+            .IsRequired(); // Klucz obcy
 
             builder.HasIndex(x => x.Username).IsUnique();
 
             builder.HasMany(u => u.Ratings)
                 .WithOne(r => r.User)
-                .HasForeignKey(r => r.IdUser);
+                .HasForeignKey(r => r.UserId);
 
-            builder.HasOne(u => u.Role)
-                .WithMany(r => r.Users)
-                .HasForeignKey(u => u.IdRole);
+            builder.HasOne(u => u.Role) // Użytkownik ma jedną rolę
+            .WithMany(r => r.Users) // Rola ma wielu użytkowników
+            .HasForeignKey(u => u.RoleId); // Klucz obcy
         }
+
     }
 }
+
