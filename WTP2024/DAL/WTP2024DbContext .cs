@@ -16,7 +16,7 @@ namespace WTP2024.DAL
         public virtual DbSet<BeerDb> Beers { get; set; }
         public virtual DbSet<RatingDb> Ratings { get; set; }
         public virtual DbSet<RoleDb> Roles { get; set; }
-        public virtual DbSet<BeerDb> Users { get; set; }
+        public virtual DbSet<UserDb> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

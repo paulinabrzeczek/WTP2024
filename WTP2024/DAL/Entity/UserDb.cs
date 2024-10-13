@@ -3,7 +3,7 @@ using System.Data;
 
 namespace WTP2024.DAL.Entity
 {
-    public partial class UserDb
+    public class UserDb
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Nazwa użytkownika jest wymagana.")]
