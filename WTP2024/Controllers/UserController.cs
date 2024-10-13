@@ -45,8 +45,8 @@ namespace WTP2024.Controllers
             if (principal.Result != null)
             {
                 await HttpContext.SignInAsync(principal.Result);
+                return Json(new { message = "Zalogowano"});
             }
-
             return Json(new { message = "Nazwa użytkownika lub hasło nieprawidłowe" });
         }
     }
