@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using WTP2024.DAL;
+using WTP2024.DAL.Configuration.Settings;
 using WTP2024.Repository.User;
 using WTP2024.Services.User;
 
@@ -36,7 +37,7 @@ builder.Services.AddAuthorization(options =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<WTP2024DbContext>(options =>
     options.UseSqlServer(connectionString));
-
+builder.Services.Configure<Settings>(builder.Configuration.GetSection("Settings"));
 //Service
 builder.Services.AddScoped<IUserService, UserService>();
 //Repos
@@ -49,7 +50,7 @@ builder.Services.AddResponseCompression(options =>
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.Listen(System.Net.IPAddress.Parse("192.168.137.1"), 7131); // Nas³uchuj na adresie IP i porcie
+    options.Listen(System.Net.IPAddress.Parse("192.168.137.5"), 7131); // Nas³uchuj na adresie IP i porcie
     options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(5);  // Keep-alive timeout of 5 minutes
     options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(5);  // Timeout for headers
     options.Limits.MaxRequestBodySize = 104857600;  // 100 MB max request body size
