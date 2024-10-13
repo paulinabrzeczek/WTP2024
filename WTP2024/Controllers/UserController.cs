@@ -26,7 +26,7 @@ namespace WTP2024.Controllers
             _userService = userService;
         }
 
-        [HttpPost("{userId}")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [SwaggerOperation("Add user")]
         public async Task<ActionResult> AddUser(UserDto userDto, int userId)
@@ -35,10 +35,10 @@ namespace WTP2024.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [SwaggerOperation("Login user")]
-        public async Task<IActionResult> LoginUser([FromForm] UserDto user)
+        public async Task<IActionResult> LoginUser( UserDto user)
         {
             Task<ClaimsPrincipal> principal = _userService.Login(user);
 
