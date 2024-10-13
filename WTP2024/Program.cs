@@ -48,13 +48,13 @@ builder.Services.AddResponseCompression(options =>
     options.EnableForHttps = true; // Enable compression for HTTPS
 });
 
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.Listen(System.Net.IPAddress.Parse("192.168.137.5"), 7131); // Nas³uchuj na adresie IP i porcie
-    options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(5);  // Keep-alive timeout of 5 minutes
-    options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(5);  // Timeout for headers
-    options.Limits.MaxRequestBodySize = 104857600;  // 100 MB max request body size
-});
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.Listen(System.Net.IPAddress.Parse("192.168.137.5"), 7131); // Nas³uchuj na adresie IP i porcie
+//    options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(5);  // Keep-alive timeout of 5 minutes
+//    options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(5);  // Timeout for headers
+//    options.Limits.MaxRequestBodySize = 104857600;  // 100 MB max request body size
+//});
 
 var app = builder.Build();
 
