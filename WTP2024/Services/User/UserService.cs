@@ -22,18 +22,25 @@ namespace WTP2024.Services.User
         }
         public async Task AddAsync(UserDto userDto, int userId)
         {
+            if (await _userRepository.UsernameExistsAsync(userDto.Username))
+            {
+                throw new Exception("Nazwa użytkownika jest już zajęta.");
+            }
+
             if (!await _userRepository.CheckIfExistsAsync(userId))
             {
                 var userDb = MapToUserDb(userDto);
                 var newUserDb = new UserDb
                 {
-                    Id = userId,
                     Username = userDb.Username,
-                    Passwordhash = userDb.Passwordhash,
-                    Role = userDb.Role,
+                    Passwordhash = userDb.Passwordhash
             };
 
                 await _userRepository.AddAsync(newUserDb);
+            }
+            else
+            {
+                throw new Exception("Użytkownik o podanym ID już istnieje.");
             }
         }
         public async Task<ClaimsPrincipal?> Login(UserDto user)
@@ -78,19 +85,17 @@ namespace WTP2024.Services.User
 
         private static UserDb MapToUserDb(UserDto userDto) => new()
         {
-            Id = userDto.Id,
+           // Id = userDto.Id,
             Username = userDto.Username,
             Passwordhash = userDto.Passwordhash,
-            RoleId = userDto.RoleId
         };
 
         private static T Map<T>(UserDb userDb) where T : UserDto, new()
             => new()
             {
-                Id = userDb.Id,
+               // Id = userDb.Id,
                 Username = userDb.Username,
                 Passwordhash = userDb.Passwordhash,
-                RoleId = userDb.RoleId
             };
 
 #endregion

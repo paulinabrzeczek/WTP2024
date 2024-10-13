@@ -18,13 +18,6 @@ namespace WTP2024.DAL
         public virtual DbSet<RoleDb> Roles { get; set; }
         public virtual DbSet<UserDb> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=.\\PAULINASQLSERVER;Database=project;Trusted_Connection=true;TrustServerCertificate=True;");
-            }
-        }
 
     }
 }

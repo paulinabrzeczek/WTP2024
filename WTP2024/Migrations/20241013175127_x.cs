@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WTP2024.Migrations
 {
     /// <inheritdoc />
-    public partial class DBConfig : Migration
+    public partial class x : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BeerDb",
+                name: "Beers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -28,7 +28,7 @@ namespace WTP2024.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BeerDb", x => x.Id);
+                    table.PrimaryKey("PK_Beers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,7 +45,7 @@ namespace WTP2024.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserDb",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -56,9 +56,9 @@ namespace WTP2024.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserDb", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserDb_Roles_RoleId",
+                        name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
@@ -80,15 +80,15 @@ namespace WTP2024.Migrations
                 {
                     table.PrimaryKey("PK_Ratings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ratings_BeerDb_BeerId",
+                        name: "FK_Ratings_Beers_BeerId",
                         column: x => x.BeerId,
-                        principalTable: "BeerDb",
+                        principalTable: "Beers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ratings_UserDb_UserId",
+                        name: "FK_Ratings_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "UserDb",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -104,8 +104,8 @@ namespace WTP2024.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserDb_RoleId",
-                table: "UserDb",
+                name: "IX_Users_RoleId",
+                table: "Users",
                 column: "RoleId");
         }
 
@@ -116,10 +116,10 @@ namespace WTP2024.Migrations
                 name: "Ratings");
 
             migrationBuilder.DropTable(
-                name: "BeerDb");
+                name: "Beers");
 
             migrationBuilder.DropTable(
-                name: "UserDb");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Roles");

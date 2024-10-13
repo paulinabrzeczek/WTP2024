@@ -7,5 +7,6 @@ namespace WTP2024.Services.User
     public interface IUserService
     {
         Task AddAsync(UserDto userDto, int userId);
+        Task<ClaimsPrincipal?> Login(UserDto user);
     }
 }

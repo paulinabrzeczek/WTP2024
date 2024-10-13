@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.Swagger.Annotations;
+using System.Security.Claims;
 using WTP2024.DAL;
+using WTP2024.DAL.Entity;
 using WTP2024.DTO;
 using WTP2024.Services.User;
 
@@ -32,5 +35,19 @@ namespace WTP2024.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation("Login user")]
+        public async Task<IActionResult> LoginUser([FromForm] UserDto user)
+        {
+            Task<ClaimsPrincipal> principal = _userService.Login(user);
+
+            if (principal.Result != null)
+            {
+                await HttpContext.SignInAsync(principal.Result);
+            }
+
+            return Json(new { message = "Nazwa użytkownika lub hasło nieprawidłowe" });
+        }
     }
 }

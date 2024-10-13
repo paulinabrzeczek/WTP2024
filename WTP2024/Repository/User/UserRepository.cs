@@ -10,15 +10,18 @@ namespace WTP2024.Repository.User
     public class UserRepository : IUserRepository
     {
         private readonly WTP2024DbContext _dbContext;
-        private readonly string _salt;
-        public UserRepository(WTP2024DbContext dbContext, IOptions<Settings> settings)
+        public UserRepository(WTP2024DbContext dbContext)
         {
             _dbContext = dbContext;
-            _salt = settings.Value.Salt;
+        }
+        public async Task<bool> UsernameExistsAsync(string username)
+        {
+            return await _dbContext.Users.AnyAsync(u => u.Username == username);
         }
         public async Task AddAsync(UserDb userDb)
         {
-            userDb.Passwordhash = BCrypt.Net.BCrypt.HashPassword(userDb.Passwordhash, _salt);
+            string salt = BCrypt.Net.BCrypt.GenerateSalt();
+            userDb.Passwordhash = BCrypt.Net.BCrypt.HashPassword(userDb.Passwordhash, salt);
             userDb.RoleId = 2;
             await _dbContext.Users.AddAsync(userDb);
             await _dbContext.SaveChangesAsync();

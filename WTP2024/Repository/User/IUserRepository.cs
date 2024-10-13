@@ -8,6 +8,7 @@ namespace WTP2024.Repository.User
         Task<bool> CheckIfExistsAsync(int userId);
         Task<UserDb?> FindByUsernameAsync(string username);
         Task<RoleDb?> GetUserRoleAsync(int roleId);
+        Task<bool> UsernameExistsAsync(string username);
 
     }
 }

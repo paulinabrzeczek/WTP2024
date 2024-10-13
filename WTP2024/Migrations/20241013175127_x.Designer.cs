@@ -12,8 +12,8 @@ using WTP2024.DAL;
 namespace WTP2024.Migrations
 {
     [DbContext(typeof(WTP2024DbContext))]
-    [Migration("20241010222541_DBConfig")]
-    partial class DBConfig
+    [Migration("20241013175127_x")]
+    partial class x
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace WTP2024.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BeerDb");
+                    b.ToTable("Beers");
                 });
 
             modelBuilder.Entity("WTP2024.DAL.Entity.RatingDb", b =>
@@ -138,7 +138,7 @@ namespace WTP2024.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserDb");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("WTP2024.DAL.Entity.RatingDb", b =>
