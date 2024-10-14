@@ -34,5 +34,11 @@ namespace WTP2024.Controllers
             }
             return Ok(beer);
         }
+        //test
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok("Działa");
+        }
     }
 }
