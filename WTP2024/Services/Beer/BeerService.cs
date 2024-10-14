@@ -34,10 +34,27 @@ namespace WTP2024.Services.Beer
             }
             return MapToDto(beerDb);
         }
-        #region "Private"
-        private static BeerDto MapToDto(BeerDb roomDb)
+        public async Task AddAsync(BeerDto beerDto)
         {
-            return Map<BeerDto>(roomDb);
+
+            var beer = new BeerDb
+            {
+                NameBeer = beerDto.NameBeer,
+                AlcoholContent = beerDto.AlcoholContent,
+                Type = beerDto.Type,
+                Packaging = beerDto.Packaging,
+                Volume = beerDto.Volume,
+                Country = beerDto.Country,
+                Image = beerDto.Image,
+                Price = beerDto.Price
+            };
+            _dbContext.Beers.Add(beer);
+            await _dbContext.SaveChangesAsync();
+        }
+        #region "Private"
+        private static BeerDto MapToDto(BeerDb beerDb)
+        {
+            return Map<BeerDto>(beerDb);
         }
         private static T Map<T>(BeerDb beerDb) where T : BeerDto, new()
             => new()

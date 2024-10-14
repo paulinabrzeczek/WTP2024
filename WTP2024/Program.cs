@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using WTP2024.DAL;
 using WTP2024.DAL.Configuration.Settings;
+using WTP2024.Repository.Beer;
 using WTP2024.Repository.User;
+using WTP2024.Services.Beer;
 using WTP2024.Services.User;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,8 +47,10 @@ builder.Services.AddDbContext<WTP2024DbContext>(options =>
 builder.Services.Configure<Settings>(builder.Configuration.GetSection("Settings"));
 //Service
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IBeerService, BeerService>();
 //Repos
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IBeerRepository, BeerRepository>();
 
 builder.Services.AddResponseCompression(options =>
 {

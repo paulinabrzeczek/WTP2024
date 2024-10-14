@@ -25,6 +25,11 @@ namespace WTP2024.Repository.Beer
         {
             return await _dbContext.Beers.Include(b => b.Ratings).FirstOrDefaultAsync(b => b.Id == beerId);
         }
+        public async Task AddAsync(BeerDb beerDb)
+        {
+            await _dbContext.Beers.AddAsync(beerDb);
+            await _dbContext.SaveChangesAsync();
+        }
 
 
     }

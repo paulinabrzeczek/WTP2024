@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WTP2024.DTO;
 using WTP2024.Services.Beer;
 
 namespace WTP2024.Controllers
@@ -33,6 +34,17 @@ namespace WTP2024.Controllers
                 return NotFound("Nie znaleziono piwa.");
             }
             return Ok(beer);
+        }
+        [HttpPost("add")]
+        public async Task<IActionResult> AddBeer([FromBody] BeerDto beerDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _beerService.AddAsync(beerDto);
+            return Ok("Piwo zostało dodane");
         }
         //test
         [HttpGet("test")]

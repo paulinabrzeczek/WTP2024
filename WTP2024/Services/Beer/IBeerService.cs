@@ -6,5 +6,6 @@ namespace WTP2024.Services.Beer
     {
         Task<List<BeerDto>> GetAllBeersAsync();
         Task<BeerDto?> FindByIdAsync(int beerId);
+        Task AddAsync(BeerDto beerDto);
     }
 }

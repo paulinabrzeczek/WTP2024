@@ -7,5 +7,6 @@ namespace WTP2024.Repository.Beer
         Task<IList<BeerDb>> GetAllBeersAsyns();
         Task<BeerDb?> FindByIdAsync(int beerId);
         Task<bool> CheckIfExistsAsync(int beerId);
+        Task AddAsync(BeerDb beerDb);
     }
 }
