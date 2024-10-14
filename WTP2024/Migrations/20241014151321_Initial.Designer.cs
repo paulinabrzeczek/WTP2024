@@ -12,8 +12,8 @@ using WTP2024.DAL;
 namespace WTP2024.Migrations
 {
     [DbContext(typeof(WTP2024DbContext))]
-    [Migration("20241014142615_initial")]
-    partial class initial
+    [Migration("20241014151321_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,11 +37,9 @@ namespace WTP2024.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Image")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("NameBeer")
@@ -56,10 +54,9 @@ namespace WTP2024.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Volume")
+                    b.Property<int?>("Volume")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

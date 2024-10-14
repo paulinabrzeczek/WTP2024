@@ -11,19 +11,21 @@ namespace WTP2024.Repository.Beer
         {
             _dbContext = dbContext;
         }
-        public async Task<IList<BeerDb>> GetAllBeersAsyns()
+        public async Task<BeerDb?> GetBeerByIdAsync(int id)
         {
-            return await _dbContext.Beers.OrderBy(x => x.Id)
-                .Include(x => x.Ratings)
+            return await _dbContext.Beers
+                .Include(b => b.Ratings) 
+                .FirstOrDefaultAsync(b => b.Id == id);
+        }
+        public async Task<IEnumerable<BeerDb>> GetAllBeersAsync()
+        {
+            return await _dbContext.Beers
+                .Include(b => b.Ratings) 
                 .ToListAsync();
         }
         public async Task<bool> CheckIfExistsAsync(int beerId)
         {
             return await _dbContext.Beers.Where(x => x.Id == beerId).AnyAsync();
-        }
-        public async Task<BeerDb?> FindByIdAsync(int beerId)
-        {
-            return await _dbContext.Beers.Include(b => b.Ratings).FirstOrDefaultAsync(b => b.Id == beerId);
         }
         public async Task AddAsync(BeerDb beerDb)
         {

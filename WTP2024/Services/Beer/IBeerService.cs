@@ -4,8 +4,8 @@ namespace WTP2024.Services.Beer
 {
     public interface IBeerService
     {
-        Task<List<BeerDto>> GetAllBeersAsync();
-        Task<BeerDto?> FindByIdAsync(int beerId);
+        Task<BeerWithAvgRatingDto?> GetBeerWithAvgRatingAsync(int id); 
+        Task<IEnumerable<RatingDto>> GetAllBeersWithAvgRatingAsync();
         Task AddAsync(BeerDto beerDto);
     }
 }

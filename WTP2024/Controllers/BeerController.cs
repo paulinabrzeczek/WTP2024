@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WTP2024.DTO;
 using WTP2024.Services.Beer;
 
@@ -16,26 +17,28 @@ namespace WTP2024.Controllers
         }
 
         [HttpGet("all")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllBeers()
+        public async Task<ActionResult<IEnumerable<RatingDto>>> GetAllBeersWithAvgRating()
         {
-            var beers = await _beerService.GetAllBeersAsync();
+            var beers = await _beerService.GetAllBeersWithAvgRatingAsync();
             return Ok(beers);
         }
 
+        // Endpoint do pobierania konkretnego piwa z ocenami użytkowników i średnią oceną
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetBeerById(int id)
+        public async Task<ActionResult<BeerWithAvgRatingDto>> GetBeerWithAvgRating(int id)
         {
-            var beer = await _beerService.FindByIdAsync(id);
+            var beer = await _beerService.GetBeerWithAvgRatingAsync(id);
+
             if (beer == null)
             {
-                return NotFound("Nie znaleziono piwa.");
+                return NotFound();
             }
+
             return Ok(beer);
         }
-        [HttpPost("add")]
+
+    [HttpPost("add")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddBeer([FromBody] BeerDto beerDto)
         {
             if (!ModelState.IsValid)
@@ -45,12 +48,6 @@ namespace WTP2024.Controllers
 
             await _beerService.AddAsync(beerDto);
             return Ok("Piwo zostało dodane");
-        }
-        //test
-        [HttpGet("test")]
-        public IActionResult Test()
-        {
-            return Ok("Działa");
         }
     }
 }

@@ -19,21 +19,54 @@ namespace WTP2024.Services.Beer
             _beerRepository = beerRepository;
             _logger = logger;
         }
-        public async Task<List<BeerDto>> GetAllBeersAsync()
+        public async Task<BeerWithAvgRatingDto?> GetBeerWithAvgRatingAsync(int id)
         {
-            var beersDb = await _beerRepository.GetAllBeersAsyns();
-            var beerDtos = beersDb.Select(b => MapToDto(b)).ToList();
-            return beerDtos;
-        }
-        public async Task<BeerDto?> FindByIdAsync(int beerId)
-        {
-            var beerDb = await _beerRepository.FindByIdAsync(beerId);
-            if (beerDb == null)
+            var beer = await _beerRepository.GetBeerByIdAsync(id);
+
+            if (beer == null)
             {
-                return null;
+                return null; 
             }
-            return MapToDto(beerDb);
+
+            double? avgRating = beer.Ratings.Any() ? beer.Ratings.Average(r => r.Rating) : (double?)null;
+
+            return new BeerWithAvgRatingDto
+            {
+                Id = beer.Id,
+                NameBeer = beer.NameBeer,
+                AlcoholContent = beer.AlcoholContent,
+                Type = beer.Type,
+                Packaging = beer.Packaging,
+                Volume = beer.Volume,
+                Country = beer.Country,
+                Image = beer.Image,
+                Price = beer.Price,
+                AvgRating = avgRating,
+                Ratings = beer.Ratings.Select(r => new RatingDto
+                {
+                    Id = r.Id,
+                    Rating = r.Rating,
+                    AddedDate = r.AddedDate,
+                    BeerId = r.BeerId,
+                    UserId = r.UserId
+                }).ToList()
+            };
         }
+        public async Task<IEnumerable<RatingDto>> GetAllBeersWithAvgRatingAsync()
+        {
+            var beers = await _beerRepository.GetAllBeersAsync();
+
+            return beers.Select(beer => new RatingDto
+            {
+                Id = beer.Id,
+                BeerId = beer.Id,
+                Beer = beer,
+                Rating = beer.Ratings.Any() ? beer.Ratings.Average(r => r.Rating) : 0.0, 
+                AddedDate = DateTime.Now, // To pole możesz dostosować
+                UserId = 0 // Zostawiasz puste, jeśli nie potrzebujesz użytkownika
+            }).ToList();
+        }
+
         public async Task AddAsync(BeerDto beerDto)
         {
 

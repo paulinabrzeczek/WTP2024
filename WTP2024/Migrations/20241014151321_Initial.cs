@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WTP2024.Migrations
 {
     /// <inheritdoc />
-    public partial class x : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,11 +19,11 @@ namespace WTP2024.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NameBeer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AlcoholContent = table.Column<double>(type: "float", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Packaging = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Volume = table.Column<int>(type: "int", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Volume = table.Column<int>(type: "int", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Price = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
