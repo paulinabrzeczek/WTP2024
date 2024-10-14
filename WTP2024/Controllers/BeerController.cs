@@ -22,8 +22,6 @@ namespace WTP2024.Controllers
             var beers = await _beerService.GetAllBeersWithAvgRatingAsync();
             return Ok(beers);
         }
-
-        // Endpoint do pobierania konkretnego piwa z ocenami użytkowników i średnią oceną
         [HttpGet("{id}")]
         public async Task<ActionResult<BeerWithAvgRatingDto>> GetBeerWithAvgRating(int id)
         {
@@ -37,7 +35,7 @@ namespace WTP2024.Controllers
             return Ok(beer);
         }
 
-    [HttpPost("add")]
+        [HttpPost("add")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddBeer([FromBody] BeerDto beerDto)
         {

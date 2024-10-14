@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using WTP2024.DAL;
 using WTP2024.DAL.Configuration.Settings;
 using WTP2024.Repository.Beer;
+using WTP2024.Repository.Rating;
 using WTP2024.Repository.User;
 using WTP2024.Services.Beer;
+using WTP2024.Services.Rating;
 using WTP2024.Services.User;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,9 +50,11 @@ builder.Services.Configure<Settings>(builder.Configuration.GetSection("Settings"
 //Service
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBeerService, BeerService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 //Repos
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBeerRepository, BeerRepository>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 
 builder.Services.AddResponseCompression(options =>
 {
