@@ -24,8 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Beer\" />
-    <Folder Include="Services\Role\" />
     <Folder Include="Services\Rating\" />
   </ItemGroup>
 

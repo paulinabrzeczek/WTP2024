@@ -1,4 +1,6 @@
-﻿namespace WTP2024.DTO
+﻿using Microsoft.AspNetCore.Routing.Constraints;
+
+namespace WTP2024.DTO
 {
     public class BeerDto
     {
@@ -11,5 +13,6 @@
         public string Country { get; set; }
         public byte[] Image { get; set; }
         public double Price { get; set; }//!
+        public double? Rating { get; set; }
     }
 }
